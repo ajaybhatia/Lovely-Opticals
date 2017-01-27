@@ -34,12 +34,99 @@ public class EyeSight implements Serializable {
     @ManyToOne
     private Customer customer;
 
+    public EyeSight() {
+    }
+
+    public EyeSight(float sphLeftEye, float cylLeftEye, float axisLeftEye, float addLeftEye, float sphRightEye, float cylRightEye, float axisRightEye, float addRightEye, Customer customer) {
+        this.sphLeftEye = sphLeftEye;
+        this.cylLeftEye = cylLeftEye;
+        this.axisLeftEye = axisLeftEye;
+        this.addLeftEye = addLeftEye;
+        this.sphRightEye = sphRightEye;
+        this.cylRightEye = cylRightEye;
+        this.axisRightEye = axisRightEye;
+        this.addRightEye = addRightEye;
+        this.customer = customer;
+    }
+    
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public float getSphLeftEye() {
+        return sphLeftEye;
+    }
+
+    public void setSphLeftEye(float sphLeftEye) {
+        this.sphLeftEye = sphLeftEye;
+    }
+
+    public float getCylLeftEye() {
+        return cylLeftEye;
+    }
+
+    public void setCylLeftEye(float cylLeftEye) {
+        this.cylLeftEye = cylLeftEye;
+    }
+
+    public float getAxisLeftEye() {
+        return axisLeftEye;
+    }
+
+    public void setAxisLeftEye(float axisLeftEye) {
+        this.axisLeftEye = axisLeftEye;
+    }
+
+    public float getAddLeftEye() {
+        return addLeftEye;
+    }
+
+    public void setAddLeftEye(float addLeftEye) {
+        this.addLeftEye = addLeftEye;
+    }
+
+    public float getSphRightEye() {
+        return sphRightEye;
+    }
+
+    public void setSphRightEye(float sphRightEye) {
+        this.sphRightEye = sphRightEye;
+    }
+
+    public float getCylRightEye() {
+        return cylRightEye;
+    }
+
+    public void setCylRightEye(float cylRightEye) {
+        this.cylRightEye = cylRightEye;
+    }
+
+    public float getAxisRightEye() {
+        return axisRightEye;
+    }
+
+    public void setAxisRightEye(float axisRightEye) {
+        this.axisRightEye = axisRightEye;
+    }
+
+    public float getAddRightEye() {
+        return addRightEye;
+    }
+
+    public void setAddRightEye(float addRightEye) {
+        this.addRightEye = addRightEye;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
