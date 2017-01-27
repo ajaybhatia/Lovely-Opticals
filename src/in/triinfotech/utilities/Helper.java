@@ -5,7 +5,9 @@
  */
 package in.triinfotech.utilities;
 
+import in.triinfotech.entity.controller.UserJpaController;
 import java.awt.Component;
+import javax.persistence.Persistence;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,6 +17,12 @@ import javax.swing.JOptionPane;
  */
 public class Helper {
 
+    public static UserJpaController getUserControllerInstance() {
+        return new UserJpaController(
+            Persistence.createEntityManagerFactory("LovelyOpticalsPU")
+        );
+    }
+    
     public static void centerScreen(JFrame frame) {
         frame.setLocationRelativeTo(null);
     }

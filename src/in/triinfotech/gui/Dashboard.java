@@ -37,22 +37,31 @@ public class Dashboard extends javax.swing.JFrame {
         btnEyeSight1 = new javax.swing.JButton();
         lblLogout = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard ");
         setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
-        pnlDashboard.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        pnlDashboard.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnUpdateUser.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnUpdateUser.setMnemonic('u');
         btnUpdateUser.setText("Update User");
+        btnUpdateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateUserActionPerformed(evt);
+            }
+        });
 
         btnCustomer.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnCustomer.setMnemonic('c');
         btnCustomer.setText("Customer");
 
         btnEyeSight.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnEyeSight.setMnemonic('e');
         btnEyeSight.setText("Eye Sight");
 
         btnEyeSight1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnEyeSight1.setMnemonic('r');
         btnEyeSight1.setText("Reports");
 
         lblLogout.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -72,18 +81,22 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(pnlDashboardLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlDashboardLayout.createSequentialGroup()
-                        .addGroup(pnlDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnUpdateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEyeSight1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDashboardLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEyeSight, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12))
-                    .addComponent(lblLogout)))
+                    .addGroup(pnlDashboardLayout.createSequentialGroup()
+                        .addGroup(pnlDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblLogout, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnUpdateUser, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(btnCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(btnEyeSight1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
+
+        pnlDashboardLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCustomer, btnEyeSight, btnEyeSight1, btnUpdateUser});
+
         pnlDashboardLayout.setVerticalGroup(
             pnlDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDashboardLayout.createSequentialGroup()
@@ -128,6 +141,16 @@ public class Dashboard extends javax.swing.JFrame {
         });
         setVisible(false);
     }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void btnUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUserActionPerformed
+        setVisible(false);
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new UpdateUser().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnUpdateUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomer;

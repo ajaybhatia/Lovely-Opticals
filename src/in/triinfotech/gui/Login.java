@@ -26,11 +26,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         Helper.centerScreen(this);
 
-        userController = 
-            new UserJpaController(
-                Persistence.createEntityManagerFactory("LovelyOpticalsPU")
-            );
-
+        userController = Helper.getUserControllerInstance();
         addDefaultAdmin();
     }
 
