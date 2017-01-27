@@ -43,6 +43,8 @@ public class UpdateUser extends javax.swing.JFrame {
         lblPassword = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        lblOldPassword = new javax.swing.JLabel();
+        txtOldPassword = new javax.swing.JPasswordField();
         pnlButtons = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -53,7 +55,9 @@ public class UpdateUser extends javax.swing.JFrame {
 
         lblUsername.setText("Username:");
 
-        lblPassword.setText("Password:");
+        lblPassword.setText("New Password:");
+
+        lblOldPassword.setText("Old Password:");
 
         javax.swing.GroupLayout pnlInputsLayout = new javax.swing.GroupLayout(pnlInputs);
         pnlInputs.setLayout(pnlInputsLayout);
@@ -63,10 +67,12 @@ public class UpdateUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsername)
-                    .addComponent(lblPassword))
+                    .addComponent(lblPassword)
+                    .addComponent(lblOldPassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsername)
+                    .addComponent(txtOldPassword)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(txtPassword))
                 .addContainerGap())
         );
@@ -79,12 +85,16 @@ public class UpdateUser extends javax.swing.JFrame {
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOldPassword)
+                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlInputsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        pnlButtons.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        pnlButtons.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnCancel.setMnemonic('c');
         btnCancel.setText("Cancel");
@@ -139,7 +149,7 @@ public class UpdateUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlInputs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -161,32 +171,39 @@ public class UpdateUser extends javax.swing.JFrame {
             txtUsername.requestFocus();
         } else {
             User user = userController.findUserEntities().get(0);
-            user.setUsername(username);
-            user.setPassword(password);
-            try {
-                userController.edit(user);
-            } catch (Exception ex) {
-                Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Helper.showSuccessMessage(this, "Username/Password updated successfully!");
-            
-            setVisible(false);
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    new Dashboard().setVisible(true);
+            if (String.valueOf(txtOldPassword.getPassword()).equals(user.getPassword())) {
+                user.setUsername(username);
+                user.setPassword(password);
+                try {
+                    userController.edit(user);
+                } catch (Exception ex) {
+                    Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            });
+                Helper.showSuccessMessage(this, "Username/Password updated successfully!");
+
+                setVisible(false);
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Dashboard().setVisible(true);
+                    }
+                });
+            } else {
+                Helper.showErrorMessage(this, "Old Password is Incorrect");
+                txtOldPassword.requestFocus();
+            }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel lblOldPassword;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlInputs;
+    private javax.swing.JPasswordField txtOldPassword;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

@@ -55,6 +55,11 @@ public class Dashboard extends javax.swing.JFrame {
         btnCustomer.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnCustomer.setMnemonic('c');
         btnCustomer.setText("Customer");
+        btnCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerActionPerformed(evt);
+            }
+        });
 
         btnEyeSight.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnEyeSight.setMnemonic('e');
@@ -151,6 +156,16 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnUpdateUserActionPerformed
+
+    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
+        setVisible(false);
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Customer().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnCustomerActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomer;
