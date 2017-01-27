@@ -7,12 +7,19 @@ package in.triinfotech.gui;
 
 import in.triinfotech.entity.controller.CustomerJpaController;
 import in.triinfotech.utilities.Helper;
-import java.time.Instant;
+import java.io.File;
+import java.io.IOException;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableCell;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 
 /**
  *
@@ -118,6 +125,11 @@ public class Customer extends javax.swing.JFrame {
 
         btnExcel.setMnemonic('g');
         btnExcel.setText("Generate Excel");
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcelActionPerformed(evt);
+            }
+        });
 
         btnNewRecord.setText("New Record");
         btnNewRecord.addActionListener(new java.awt.event.ActionListener() {
@@ -428,6 +440,41 @@ public class Customer extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+        try {
+            WritableWorkbook workbook =
+                    Workbook.createWorkbook(new File("CustomersList.xls"));
+            
+            WritableSheet sheet = workbook.createSheet("List", 0);
+            
+            ListIterator<in.triinfotech.entity.Customer> listIterator = 
+                customerController.findCustomerEntities().listIterator();
+            int row = 0, col = 0;
+            while (listIterator.hasNext()) {
+                in.triinfotech.entity.Customer customer = listIterator.next();
+                sheet.addCell(new Label(col++, row, customer.getFirstName()));
+                sheet.addCell(new Label(col++, row, customer.getLastName()));
+                sheet.addCell(new Label(col++, row, String.valueOf(customer.getGender())));
+                sheet.addCell(new Label(col++, row, customer.getDateOfBirth().toString()));
+                sheet.addCell(new Label(col++, row, customer.getEmail()));
+                sheet.addCell(new Label(col++, row, customer.getAddress()));
+                sheet.addCell(new Label(col++, row, customer.getCity()));
+                sheet.addCell(new Label(col++, row, String.valueOf(customer.getPinCode())));
+                sheet.addCell(new Label(col++, row, customer.getState()));
+                sheet.addCell(new Label(col, row++, customer.getPhoneNumber()));
+                col = 0;
+                System.out.println(customer);
+            }
+            
+            workbook.write();
+            workbook.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (WriteException ex) {
+            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExcelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager LovelyOpticalsPUEntityManager;

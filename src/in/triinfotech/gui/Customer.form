@@ -164,6 +164,9 @@
             <Property name="mnemonic" type="int" value="103"/>
             <Property name="text" type="java.lang.String" value="Generate Excel"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcelActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnNewRecord">
           <Properties>
