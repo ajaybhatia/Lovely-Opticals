@@ -7,7 +7,9 @@ package in.triinfotech.gui;
 
 import in.triinfotech.entity.User;
 import in.triinfotech.entity.controller.UserJpaController;
+import in.triinfotech.utilities.Helper;
 import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -95,9 +97,21 @@ public class Login extends javax.swing.JFrame {
 
         pnlButtons.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
+        btnCancel.setMnemonic('c');
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
+        btnLogin.setMnemonic('l');
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
         pnlButtons.setLayout(pnlButtonsLayout);
@@ -198,6 +212,28 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        String username = txtUsername.getText().trim();
+        String password = String.valueOf(txtPassword.getPassword()).trim();
+        
+        if (username.equals("") || username == null 
+                || password.equals("") || password == null) {
+            Helper.showErrorMessage(this, "Username or Password cannot be empty");
+            txtUsername.requestFocus();
+        } else {
+            User user = userController.findUserEntities().get(0);
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                Helper.showSuccessMessage(this, "Burrah!!!");
+            } else {
+                Helper.showErrorMessage(this, "Username or Password is Incorrect");
+            }
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
