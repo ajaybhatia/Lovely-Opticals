@@ -24,7 +24,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        setLocationRelativeTo(null);
+        Helper.centerScreen(this);
 
         userController = 
             new UserJpaController(
@@ -224,7 +224,12 @@ public class Login extends javax.swing.JFrame {
         } else {
             User user = userController.findUserEntities().get(0);
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                Helper.showSuccessMessage(this, "Burrah!!!");
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new Dashboard().setVisible(true);
+                    }
+                });
+                setVisible(false);
             } else {
                 Helper.showErrorMessage(this, "Username or Password is Incorrect");
             }
