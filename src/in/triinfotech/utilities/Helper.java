@@ -6,6 +6,7 @@
 package in.triinfotech.utilities;
 
 import java.awt.Component;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +15,10 @@ import javax.swing.JOptionPane;
  */
 public class Helper {
 
+    public static void centerScreen(JFrame frame) {
+        frame.setLocationRelativeTo(null);
+    }
+    
     public static void showSuccessMessage(Component component, String message) {
         JOptionPane.showMessageDialog(component, message, "Message", JOptionPane.INFORMATION_MESSAGE);
     }
