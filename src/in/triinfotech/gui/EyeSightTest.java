@@ -5,6 +5,8 @@
  */
 package in.triinfotech.gui;
 
+import in.triinfotech.entity.EyeSight;
+import in.triinfotech.entity.controller.EyeSightJpaController;
 import in.triinfotech.utilities.DateConverter;
 import in.triinfotech.utilities.Helper;
 
@@ -13,13 +15,16 @@ import in.triinfotech.utilities.Helper;
  * @author ajay
  */
 public class EyeSightTest extends javax.swing.JFrame {
-
+    
+    private EyeSightJpaController eyeSightController;
+    
     /**
      * Creates new form EyeSightTest
      */
     public EyeSightTest() {
         initComponents();
         
+        eyeSightController = Helper.getEyeSightControllerInstance();
         Helper.centerScreen(this);
     }
 
@@ -70,9 +75,13 @@ public class EyeSightTest extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eye Sight Testing");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         pnlCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer Information"));
 
@@ -239,29 +248,24 @@ public class EyeSightTest extends javax.swing.JFrame {
                     .addComponent(lblLeft))
                 .addGap(26, 26, 26)
                 .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEyeSightLayout.createSequentialGroup()
-                        .addComponent(txtSphRight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCylRight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAxisRight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlEyeSightLayout.createSequentialGroup()
-                        .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSph, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSphLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCyl, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(txtCylLeft, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblAxis, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                            .addComponent(txtAxisLeft))))
+                    .addComponent(lblSph, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSphLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSphRight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAddRight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(txtAddLeft))
+                    .addComponent(lblCyl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(txtCylLeft, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCylRight, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAxis, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(txtAxisLeft)
+                    .addComponent(txtAxisRight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(txtAddLeft, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtAddRight, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -298,9 +302,19 @@ public class EyeSightTest extends javax.swing.JFrame {
 
         btnCancel.setMnemonic('c');
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnSave.setMnemonic('s');
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlButtonsLayout = new javax.swing.GroupLayout(pnlButtons);
         pnlButtons.setLayout(pnlButtonsLayout);
@@ -357,40 +371,74 @@ public class EyeSightTest extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EyeSightTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EyeSightTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EyeSightTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EyeSightTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+    private void close() {
+        setVisible(false);
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new EyeSightTest().setVisible(true);
+                new Dashboard().setVisible(true);
             }
         });
     }
+    
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        close();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        close();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (txtAddLeft.getText().isEmpty()) {
+            txtAddLeft.setText("0.0");
+        }
+        
+        if (txtAddRight.getText().isEmpty()) {
+            txtAddRight.setText("0.0");
+        }
+        
+        if (txtAxisLeft.getText().isEmpty()) {
+            txtAxisLeft.setText("0.0");
+        }
+        
+        if (txtAxisRight.getText().isEmpty()) {
+            txtAxisRight.setText("0.0");
+        }
+        
+        if (txtCylLeft.getText().isEmpty()) {
+            txtCylLeft.setText("0.0");
+        }
+        
+        if (txtCylRight.getText().isEmpty()) {
+            txtCylRight.setText("0.0");
+        }
+        
+        if (txtSphLeft.getText().isEmpty()) {
+            txtSphLeft.setText("0.0");
+        }
+        
+        if (txtSphRight.getText().isEmpty()) {
+            txtSphRight.setText("0.0");
+        }
+        
+        EyeSight eyeSight = new EyeSight();
+        eyeSight.setAddLeftEye(Float.parseFloat(txtAddLeft.getText().trim()));
+        eyeSight.setAddRightEye(Float.parseFloat(txtAddRight.getText().trim()));
+        eyeSight.setAxisLeftEye(Float.parseFloat(txtAxisLeft.getText().trim()));
+        eyeSight.setAxisRightEye(Float.parseFloat(txtAxisRight.getText().trim()));
+        eyeSight.setCylLeftEye(Float.parseFloat(txtCylLeft.getText().trim()));
+        eyeSight.setCylRightEye(Float.parseFloat(txtCylRight.getText().trim()));
+        eyeSight.setSphLeftEye(Float.parseFloat(txtSphLeft.getText().trim()));
+        eyeSight.setSphRightEye(Float.parseFloat(txtSphRight.getText().trim()));
+        eyeSight.setCustomer((in.triinfotech.entity.Customer) cmbCustomer.getSelectedItem());
+        eyeSightController.create(eyeSight);
+        
+        Helper.showSuccessMessage(this, "Record Added Successfully!");
+        
+        close();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager LovelyOpticalsPUEntityManager;

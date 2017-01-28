@@ -6,6 +6,7 @@
 package in.triinfotech.utilities;
 
 import in.triinfotech.entity.controller.CustomerJpaController;
+import in.triinfotech.entity.controller.EyeSightJpaController;
 import in.triinfotech.entity.controller.UserJpaController;
 import java.awt.Component;
 import javax.persistence.Persistence;
@@ -26,6 +27,12 @@ public class Helper {
     
     public static CustomerJpaController getCustomerControllerInstance() {
         return new CustomerJpaController(
+            Persistence.createEntityManagerFactory("LovelyOpticalsPU")
+        );
+    }
+    
+    public static EyeSightJpaController getEyeSightControllerInstance() {
+        return new EyeSightJpaController(
             Persistence.createEntityManagerFactory("LovelyOpticalsPU")
         );
     }

@@ -64,6 +64,11 @@ public class Dashboard extends javax.swing.JFrame {
         btnEyeSight.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnEyeSight.setMnemonic('e');
         btnEyeSight.setText("Eye Sight");
+        btnEyeSight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEyeSightActionPerformed(evt);
+            }
+        });
 
         btnEyeSight1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnEyeSight1.setMnemonic('r');
@@ -166,6 +171,16 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btnCustomerActionPerformed
+
+    private void btnEyeSightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEyeSightActionPerformed
+        setVisible(false);
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new EyeSightTest().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnEyeSightActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomer;
