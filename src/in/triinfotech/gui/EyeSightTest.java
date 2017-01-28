@@ -24,6 +24,8 @@ public class EyeSightTest extends javax.swing.JFrame {
     public EyeSightTest() {
         initComponents();
         
+        getRootPane().setDefaultButton(btnSave);
+        
         eyeSightController = Helper.getEyeSightControllerInstance();
         Helper.centerScreen(this);
     }

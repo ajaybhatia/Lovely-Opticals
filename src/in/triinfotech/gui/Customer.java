@@ -34,6 +34,8 @@ public class Customer extends javax.swing.JFrame {
     public Customer() {
         initComponents();
         
+        getRootPane().setDefaultButton(btnSave);
+        
         customerController = Helper.getCustomerControllerInstance();
         Helper.centerScreen(this);
     }

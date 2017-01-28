@@ -24,6 +24,9 @@ public class UpdateUser extends javax.swing.JFrame {
      */
     public UpdateUser() {
         initComponents();
+        
+        getRootPane().setDefaultButton(btnUpdate);
+        
         Helper.centerScreen(this);
         
         userController = Helper.getUserControllerInstance();
