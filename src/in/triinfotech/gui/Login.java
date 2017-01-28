@@ -22,6 +22,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        getRootPane().setDefaultButton(btnLogin);
+        
         Helper.centerScreen(this);
 
         userController = Helper.getUserControllerInstance();
@@ -89,7 +91,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlButtons.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        pnlButtons.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnCancel.setMnemonic('c');
         btnCancel.setText("Cancel");
@@ -131,7 +133,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        pnlLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/in/triinfotech/resources/logo.jpg"))); // NOI18N
 
