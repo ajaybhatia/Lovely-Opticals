@@ -8,8 +8,6 @@ package in.triinfotech.gui;
 import in.triinfotech.entity.User;
 import in.triinfotech.entity.controller.UserJpaController;
 import in.triinfotech.utilities.Helper;
-import javax.persistence.Persistence;
-import javax.swing.JOptionPane;
 
 /**
  *
