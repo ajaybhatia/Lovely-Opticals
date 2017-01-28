@@ -5,6 +5,9 @@
  */
 package in.triinfotech.gui;
 
+import in.triinfotech.utilities.DateConverter;
+import in.triinfotech.utilities.Helper;
+
 /**
  *
  * @author ajay
@@ -16,6 +19,8 @@ public class EyeSightTest extends javax.swing.JFrame {
      */
     public EyeSightTest() {
         initComponents();
+        
+        Helper.centerScreen(this);
     }
 
     /**
@@ -26,7 +31,11 @@ public class EyeSightTest extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        LovelyOpticalsPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("LovelyOpticalsPU").createEntityManager();
+        customerQuery = java.beans.Beans.isDesignTime() ? null : LovelyOpticalsPUEntityManager.createQuery("SELECT c FROM Customer c");
+        customerList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : customerQuery.getResultList();
         pnlCustomer = new javax.swing.JPanel();
         cmbCustomer = new javax.swing.JComboBox<>();
         lblCustomer = new javax.swing.JLabel();
@@ -67,6 +76,10 @@ public class EyeSightTest extends javax.swing.JFrame {
 
         pnlCustomer.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer Information"));
 
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${resultList}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, customerQuery, eLProperty, cmbCustomer);
+        bindingGroup.addBinding(jComboBoxBinding);
+
         lblCustomer.setText("Customer:");
 
         lblCity.setText("City:");
@@ -81,17 +94,36 @@ public class EyeSightTest extends javax.swing.JFrame {
 
         lblDateOfBirth.setText("Date of Birth:");
 
-        txtCity.setEnabled(false);
+        txtCity.setEditable(false);
 
-        txtPincode.setEnabled(false);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cmbCustomer, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.city}"), txtCity, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
-        txtEmail.setEnabled(false);
+        txtPincode.setEditable(false);
 
-        txtContact.setEnabled(false);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cmbCustomer, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.pinCode}"), txtPincode, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
-        txtDateOfBirth.setEnabled(false);
+        txtEmail.setEditable(false);
 
-        txtState.setEnabled(false);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cmbCustomer, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.phoneNumber}"), txtEmail, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        txtContact.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cmbCustomer, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.email}"), txtContact, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        txtDateOfBirth.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cmbCustomer, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.dateOfBirth}"), txtDateOfBirth, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setConverter(new DateConverter());
+        bindingGroup.addBinding(binding);
+
+        txtState.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cmbCustomer, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.state}"), txtState, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout pnlCustomerLayout = new javax.swing.GroupLayout(pnlCustomer);
         pnlCustomer.setLayout(pnlCustomerLayout);
@@ -214,9 +246,9 @@ public class EyeSightTest extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtAxisRight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlEyeSightLayout.createSequentialGroup()
-                        .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSph, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSphLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSphLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCyl, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
@@ -239,11 +271,12 @@ public class EyeSightTest extends javax.swing.JFrame {
             pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEyeSightLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSph)
-                    .addComponent(lblAxis)
-                    .addComponent(lblCyl)
-                    .addComponent(lblAdd))
+                .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAxis, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblSph)
+                        .addComponent(lblCyl)
+                        .addComponent(lblAdd)))
                 .addGap(18, 18, 18)
                 .addGroup(pnlEyeSightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSphLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,6 +352,8 @@ public class EyeSightTest extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -358,9 +393,12 @@ public class EyeSightTest extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager LovelyOpticalsPUEntityManager;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbCustomer;
+    private java.util.List<in.triinfotech.entity.Customer> customerList;
+    private javax.persistence.Query customerQuery;
     private javax.swing.JLabel lblAdd;
     private javax.swing.JLabel lblAxis;
     private javax.swing.JLabel lblCity;
@@ -391,5 +429,6 @@ public class EyeSightTest extends javax.swing.JFrame {
     private javax.swing.JTextField txtSphLeft;
     private javax.swing.JTextField txtSphRight;
     private javax.swing.JTextField txtState;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
