@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jxl.Workbook;
 import jxl.write.Label;
-import jxl.write.WritableCell;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -334,6 +333,22 @@ public class Customer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (txtFirstName.getText().isEmpty()) {
+            Helper.showErrorMessage(this, "First Name Cannot be Empty");
+            txtFirstName.requestFocus();
+            return;
+        }
+        
+        if (txtPincode.getText().isEmpty()) {
+            txtPincode.setText("0");
+        }
+        
+        if (txtPhoneNumber.getText().isEmpty()) {
+            Helper.showErrorMessage(this, "Phone Number Cannot be Empty");
+            txtFirstName.requestFocus();
+            return;
+        }
+
         in.triinfotech.entity.Customer customer = 
                 new in.triinfotech.entity.Customer();
         
