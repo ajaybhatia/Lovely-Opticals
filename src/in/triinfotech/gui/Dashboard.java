@@ -6,6 +6,10 @@
 package in.triinfotech.gui;
 
 import in.triinfotech.utilities.Helper;
+import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JButton;
 
 /**
  *
@@ -19,6 +23,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         Helper.centerScreen(this);
+        addLogoutToAllButtons();
     }
 
     /**
@@ -182,6 +187,18 @@ public class Dashboard extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnEyeSightActionPerformed
 
+    private void logout(java.awt.event.KeyEvent evt) {
+        if (evt.isAltDown() && (evt.getKeyChar() == 'l' || evt.getKeyChar() == 'L')) {
+            setVisible(false);
+            
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Login().setVisible(true);
+                }
+            });
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnEyeSight;
@@ -190,4 +207,17 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogout;
     private javax.swing.JPanel pnlDashboard;
     // End of variables declaration//GEN-END:variables
+
+    private void addLogoutToAllButtons() {
+        for (Component component : pnlDashboard.getComponents()) {
+            if (component instanceof JButton) {
+                ((JButton) component).addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent evt) {
+                        logout(evt);
+                    }
+                });
+            }
+        }
+    }
 }
