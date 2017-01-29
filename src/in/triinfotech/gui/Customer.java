@@ -373,14 +373,7 @@ public class Customer extends javax.swing.JFrame {
         customerController.create(customer);
         
         Helper.showSuccessMessage(this, "New Customer Created Successfully!");
-        
-        setVisible(false);
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void cmbCustomerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCustomerItemStateChanged
@@ -413,12 +406,7 @@ public class Customer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewRecordActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_formWindowClosing
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -448,14 +436,7 @@ public class Customer extends javax.swing.JFrame {
         }
         
         Helper.showSuccessMessage(this, "Record Updated Successfully!");
-        
-        setVisible(false);
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
@@ -491,6 +472,9 @@ public class Customer extends javax.swing.JFrame {
         } catch (WriteException ex) {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        Helper.showSuccessMessage(this, "Excel file created successfully!");
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_btnExcelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

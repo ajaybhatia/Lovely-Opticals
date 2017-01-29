@@ -160,19 +160,8 @@ public class UpdateUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void close() {
-        setVisible(false);
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
-    }
-    
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        close();
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -194,8 +183,7 @@ public class UpdateUser extends javax.swing.JFrame {
                     Logger.getLogger(UpdateUser.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Helper.showSuccessMessage(this, "Username/Password updated successfully!");
-
-                close();
+                Helper.closeAndOpen(this, new Dashboard());
             } else {
                 Helper.showErrorMessage(this, "Old Password is Incorrect");
                 txtOldPassword.requestFocus();

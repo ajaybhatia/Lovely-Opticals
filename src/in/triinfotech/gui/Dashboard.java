@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  *
@@ -78,6 +79,11 @@ public class Dashboard extends javax.swing.JFrame {
         btnEyeSight1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnEyeSight1.setMnemonic('r');
         btnEyeSight1.setText("Reports");
+        btnEyeSight1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEyeSight1ActionPerformed(evt);
+            }
+        });
 
         lblLogout.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblLogout.setForeground(java.awt.Color.blue);
@@ -149,53 +155,28 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-        setVisible(false);
+        Helper.closeAndOpen(this, new Login());
     }//GEN-LAST:event_lblLogoutMouseClicked
 
     private void btnUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateUserActionPerformed
-        setVisible(false);
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateUser().setVisible(true);
-            }
-        });
+        Helper.closeAndOpen(this, new UpdateUser());
     }//GEN-LAST:event_btnUpdateUserActionPerformed
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
-        setVisible(false);
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Customer().setVisible(true);
-            }
-        });
+        Helper.closeAndOpen(this, new Customer());
     }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnEyeSightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEyeSightActionPerformed
-        setVisible(false);
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EyeSightTest().setVisible(true);
-            }
-        });
+        Helper.closeAndOpen(this, new EyeSightTest());
     }//GEN-LAST:event_btnEyeSightActionPerformed
+
+    private void btnEyeSight1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEyeSight1ActionPerformed
+        Helper.closeAndOpen(this, new Reports());
+    }//GEN-LAST:event_btnEyeSight1ActionPerformed
 
     private void logout(java.awt.event.KeyEvent evt) {
         if (evt.isAltDown() && (evt.getKeyChar() == 'l' || evt.getKeyChar() == 'L')) {
-            setVisible(false);
-            
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new Login().setVisible(true);
-                }
-            });
+            Helper.closeAndOpen(this, new Login());
         }
     }
     

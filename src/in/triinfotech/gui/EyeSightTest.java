@@ -373,24 +373,13 @@ public class EyeSightTest extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void close() {
-        setVisible(false);
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
-    }
     
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        close();
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        close();
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_formWindowClosing
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -440,8 +429,7 @@ public class EyeSightTest extends javax.swing.JFrame {
         eyeSightController.create(eyeSight);
         
         Helper.showSuccessMessage(this, "Record Added Successfully!");
-        
-        close();
+        Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_btnSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
