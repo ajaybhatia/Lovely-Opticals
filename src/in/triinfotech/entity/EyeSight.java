@@ -5,12 +5,17 @@
  */
 package in.triinfotech.entity;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -18,6 +23,9 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class EyeSight implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,13 +39,15 @@ public class EyeSight implements Serializable {
     private float cylRightEye;
     private float axisRightEye;
     private float addRightEye;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date createdAt;
     @ManyToOne
     private Customer customer;
 
     public EyeSight() {
     }
 
-    public EyeSight(float sphLeftEye, float cylLeftEye, float axisLeftEye, float addLeftEye, float sphRightEye, float cylRightEye, float axisRightEye, float addRightEye, Customer customer) {
+    public EyeSight(float sphLeftEye, float cylLeftEye, float axisLeftEye, float addLeftEye, float sphRightEye, float cylRightEye, float axisRightEye, float addRightEye, Date createdAt, Customer customer) {
         this.sphLeftEye = sphLeftEye;
         this.cylLeftEye = cylLeftEye;
         this.axisLeftEye = axisLeftEye;
@@ -46,6 +56,7 @@ public class EyeSight implements Serializable {
         this.cylRightEye = cylRightEye;
         this.axisRightEye = axisRightEye;
         this.addRightEye = addRightEye;
+        this.createdAt = createdAt;
         this.customer = customer;
     }
     
@@ -54,7 +65,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setId(Long id) {
+        Long oldId = this.id;
         this.id = id;
+        changeSupport.firePropertyChange("id", oldId, id);
     }
 
     public float getSphLeftEye() {
@@ -62,7 +75,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setSphLeftEye(float sphLeftEye) {
+        float oldSphLeftEye = this.sphLeftEye;
         this.sphLeftEye = sphLeftEye;
+        changeSupport.firePropertyChange("sphLeftEye", oldSphLeftEye, sphLeftEye);
     }
 
     public float getCylLeftEye() {
@@ -70,7 +85,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setCylLeftEye(float cylLeftEye) {
+        float oldCylLeftEye = this.cylLeftEye;
         this.cylLeftEye = cylLeftEye;
+        changeSupport.firePropertyChange("cylLeftEye", oldCylLeftEye, cylLeftEye);
     }
 
     public float getAxisLeftEye() {
@@ -78,7 +95,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setAxisLeftEye(float axisLeftEye) {
+        float oldAxisLeftEye = this.axisLeftEye;
         this.axisLeftEye = axisLeftEye;
+        changeSupport.firePropertyChange("axisLeftEye", oldAxisLeftEye, axisLeftEye);
     }
 
     public float getAddLeftEye() {
@@ -86,7 +105,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setAddLeftEye(float addLeftEye) {
+        float oldAddLeftEye = this.addLeftEye;
         this.addLeftEye = addLeftEye;
+        changeSupport.firePropertyChange("addLeftEye", oldAddLeftEye, addLeftEye);
     }
 
     public float getSphRightEye() {
@@ -94,7 +115,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setSphRightEye(float sphRightEye) {
+        float oldSphRightEye = this.sphRightEye;
         this.sphRightEye = sphRightEye;
+        changeSupport.firePropertyChange("sphRightEye", oldSphRightEye, sphRightEye);
     }
 
     public float getCylRightEye() {
@@ -102,7 +125,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setCylRightEye(float cylRightEye) {
+        float oldCylRightEye = this.cylRightEye;
         this.cylRightEye = cylRightEye;
+        changeSupport.firePropertyChange("cylRightEye", oldCylRightEye, cylRightEye);
     }
 
     public float getAxisRightEye() {
@@ -110,7 +135,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setAxisRightEye(float axisRightEye) {
+        float oldAxisRightEye = this.axisRightEye;
         this.axisRightEye = axisRightEye;
+        changeSupport.firePropertyChange("axisRightEye", oldAxisRightEye, axisRightEye);
     }
 
     public float getAddRightEye() {
@@ -118,7 +145,19 @@ public class EyeSight implements Serializable {
     }
 
     public void setAddRightEye(float addRightEye) {
+        float oldAddRightEye = this.addRightEye;
         this.addRightEye = addRightEye;
+        changeSupport.firePropertyChange("addRightEye", oldAddRightEye, addRightEye);
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        Date oldCreatedAt = this.createdAt;
+        this.createdAt = createdAt;
+        changeSupport.firePropertyChange("createdAt", oldCreatedAt, createdAt);
     }
 
     public Customer getCustomer() {
@@ -126,7 +165,9 @@ public class EyeSight implements Serializable {
     }
 
     public void setCustomer(Customer customer) {
+        Customer oldCustomer = this.customer;
         this.customer = customer;
+        changeSupport.firePropertyChange("customer", oldCustomer, customer);
     }
 
     @Override
@@ -152,6 +193,14 @@ public class EyeSight implements Serializable {
     @Override
     public String toString() {
         return "in.triinfotech.entity.EyeSight[ id=" + id + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

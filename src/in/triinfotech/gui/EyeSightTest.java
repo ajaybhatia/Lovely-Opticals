@@ -9,6 +9,7 @@ import in.triinfotech.entity.EyeSight;
 import in.triinfotech.entity.controller.EyeSightJpaController;
 import in.triinfotech.utilities.DateConverter;
 import in.triinfotech.utilities.Helper;
+import java.util.Date;
 
 /**
  *
@@ -434,6 +435,7 @@ public class EyeSightTest extends javax.swing.JFrame {
         eyeSight.setCylRightEye(Float.parseFloat(txtCylRight.getText().trim()));
         eyeSight.setSphLeftEye(Float.parseFloat(txtSphLeft.getText().trim()));
         eyeSight.setSphRightEye(Float.parseFloat(txtSphRight.getText().trim()));
+        eyeSight.setCreatedAt(new Date());
         eyeSight.setCustomer((in.triinfotech.entity.Customer) cmbCustomer.getSelectedItem());
         eyeSightController.create(eyeSight);
         
