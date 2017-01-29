@@ -49,4 +49,13 @@ public class Helper {
         JOptionPane.showMessageDialog(component, message, "Message", JOptionPane.ERROR_MESSAGE);
     }
     
+    public static void closeAndOpen(JFrame toClose, JFrame toOpen) {
+        toClose.dispose();
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                toOpen.setVisible(true);
+            }
+        });
+    }
 }
