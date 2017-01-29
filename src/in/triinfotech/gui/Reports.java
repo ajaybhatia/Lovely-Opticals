@@ -77,6 +77,9 @@ public class Reports extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${customer}"));
         columnBinding.setColumnName("Customer");
         columnBinding.setColumnClass(in.triinfotech.entity.Customer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${customer.phoneNumber}"));
+        columnBinding.setColumnName("Phone Number");
+        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${sphLeftEye}"));
         columnBinding.setColumnName("Sph Left Eye");
         columnBinding.setColumnClass(Float.class);
@@ -106,7 +109,6 @@ public class Reports extends javax.swing.JFrame {
         columnBinding.setColumnClass(java.util.Date.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-
         tblReport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblReportMouseClicked(evt);
