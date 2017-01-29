@@ -5,12 +5,10 @@
  */
 package in.triinfotech.gui;
 
+import in.triinfotech.entity.controller.EyeSightJpaController;
 import in.triinfotech.utilities.Helper;
-import java.util.regex.PatternSyntaxException;
-import javax.swing.RowFilter;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.TableModel;
+import java.awt.Point;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -18,11 +16,14 @@ import javax.swing.table.TableModel;
  */
 public class Reports extends javax.swing.JFrame {
 
+    private EyeSightJpaController eyeSightController;
+    
     /**
      * Creates new form Reports
      */
     public Reports() {
         initComponents();
+        eyeSightController = Helper.getEyeSightControllerInstance();
     }
 
     /**
@@ -41,6 +42,8 @@ public class Reports extends javax.swing.JFrame {
         eyeSightQuery = java.beans.Beans.isDesignTime() ? null : LovelyOpticalsPUEntityManager.createQuery("SELECT e FROM EyeSight e");
         eyeSightList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : eyeSightQuery.getResultList();
         rowSorterConverter = new in.triinfotech.utilities.RowSorterConverter();
+        popupMenu = new javax.swing.JPopupMenu();
+        menuItemGenerateReport = new javax.swing.JMenuItem();
         scrReport = new javax.swing.JScrollPane();
         tblReport = new javax.swing.JTable();
         pnlCustomer = new javax.swing.JPanel();
@@ -49,6 +52,15 @@ public class Reports extends javax.swing.JFrame {
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblReport, org.jdesktop.beansbinding.ObjectProperty.create(), rowSorterConverter, org.jdesktop.beansbinding.BeanProperty.create("table"));
         bindingGroup.addBinding(binding);
+
+        menuItemGenerateReport.setMnemonic('g');
+        menuItemGenerateReport.setText("Generate Report");
+        menuItemGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemGenerateReportActionPerformed(evt);
+            }
+        });
+        popupMenu.add(menuItemGenerateReport);
 
         setTitle("Reports");
         setExtendedState(6);
@@ -65,9 +77,6 @@ public class Reports extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${customer}"));
         columnBinding.setColumnName("Customer");
         columnBinding.setColumnClass(in.triinfotech.entity.Customer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${customer.phoneNumber}"));
-        columnBinding.setColumnName("Phone Number");
-        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${sphLeftEye}"));
         columnBinding.setColumnName("Sph Left Eye");
         columnBinding.setColumnClass(Float.class);
@@ -98,6 +107,11 @@ public class Reports extends javax.swing.JFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
 
+        tblReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblReportMouseClicked(evt);
+            }
+        });
         scrReport.setViewportView(tblReport);
 
         lblCustomerID.setText("Search By Customer ID or Name or Date:");
@@ -157,6 +171,34 @@ public class Reports extends javax.swing.JFrame {
         Helper.closeAndOpen(this, new Dashboard());
     }//GEN-LAST:event_formWindowClosing
 
+    private void tblReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReportMouseClicked
+        if (SwingUtilities.isLeftMouseButton(evt)) {
+            if (popupMenu.isVisible()) popupMenu.setVisible(false);
+        }
+        
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            Point p = evt.getPoint();
+            int row = tblReport.rowAtPoint(p);
+            int col = tblReport.columnAtPoint(p);
+        
+            if ((col == -1) || (row == -1)) return;
+
+            tblReport.setRowSelectionInterval(row, row);
+            popupMenu.setLocation(evt.getLocationOnScreen());
+            popupMenu.setVisible(true);
+        }
+    }//GEN-LAST:event_tblReportMouseClicked
+
+    private void menuItemGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGenerateReportActionPerformed
+        popupMenu.setVisible(false);
+        // Generate HTML Code
+        Helper.generateHTML(
+            eyeSightController.findEyeSight(
+                (Long) tblReport.getValueAt(tblReport.getSelectedRow(), 0)
+            )
+        );
+    }//GEN-LAST:event_menuItemGenerateReportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager LovelyOpticalsPUEntityManager;
     private java.util.List<in.triinfotech.entity.Customer> customerList;
@@ -164,7 +206,9 @@ public class Reports extends javax.swing.JFrame {
     private java.util.List<in.triinfotech.entity.EyeSight> eyeSightList;
     private javax.persistence.Query eyeSightQuery;
     private javax.swing.JLabel lblCustomerID;
+    private javax.swing.JMenuItem menuItemGenerateReport;
     private javax.swing.JPanel pnlCustomer;
+    private javax.swing.JPopupMenu popupMenu;
     private in.triinfotech.utilities.RowSorterConverter rowSorterConverter;
     private javax.swing.JScrollPane scrReport;
     private javax.swing.JTable tblReport;
